@@ -1,6 +1,8 @@
-import React,{useState} from 'react'
+import React,{ useState} from 'react'
 import { Layout, ConfigProvider,Divider,Space } from 'antd'
+import { useSelector } from 'react-redux'
 import ThemeSwitch from './components/ThemeSwitch'
+import Invoices from './views/Invoices'
 import './index.css'
 import Profile from './assets/image-avatar.jpg'
 import Logo from './assets/logo.svg'
@@ -8,14 +10,14 @@ import Logo from './assets/logo.svg'
 const { Sider } = Layout;
 
 const App: React.FC = () => {
+    const theme = useSelector((state: any) => state.theme.currentTheme )
+    
     
 
     return(
-        <ConfigProvider 
-            theme={{
-                
-            }}>
-            <Layout  className="w-full min-h-screen p-0 m-0 border-box flex !bg-whisper">
+        <ConfigProvider >
+            
+            <Layout  className={`w-full min-h-screen p-0 m-0 border-box flex ${ theme === 'light' ? '!bg-whisper' : '!bg-miragedp '} transition`}>
                 <Sider className='!bg-mirage  rounded-tr-[1.25rem] rounded-br-[1.25rem]' width="6.4375rem">
                     <Space direction="vertical" size={410}>
                         <div className='bg-cornflowerblue w-full h-[6.4375rem] rounded-tr-[1.25rem] rounded-br-[1.25rem] flex'>
@@ -30,10 +32,7 @@ const App: React.FC = () => {
                         </div>
                     </Space>
                 </Sider>
-                <main className="border w-[45.625rem] mx-auto mt-[4.5rem]">
-                    Main
-                    
-                </main>
+                <Invoices />
             </Layout>
         </ConfigProvider>
     )
